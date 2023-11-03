@@ -1,24 +1,22 @@
 package Formularios;
 
 import Clases.DatosPrograma;
-import java.awt.Color;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-public class PantallaCarga extends javax.swing.JFrame {
+public class diaPantallaCarga extends javax.swing.JDialog {
 
     private static Timer timer;
     private int progreso = 0;
 
-    public PantallaCarga() {
-        this.setUndecorated(true);
+    public diaPantallaCarga(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(this);
+        this.setTitle("HipoTest - Version: " + DatosPrograma.version);
         ImageIcon icono = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
         setIconImage(icono.getImage());
-        
-        jProgressBar1.setBackground(Color.WHITE);
-        jProgressBar1.setForeground(Color.RED);
 
         timer = new Timer(50, (ActionEvent e) -> {
             progreso++;
@@ -30,7 +28,6 @@ public class PantallaCarga extends javax.swing.JFrame {
             }
         });
         timer.start();
-        labVersion.setText("HipoTest - Version: " + DatosPrograma.version);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,18 +36,11 @@ public class PantallaCarga extends javax.swing.JFrame {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         jPanel1 = new javax.swing.JPanel();
-        labVersion = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        labVersion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        labVersion.setForeground(new java.awt.Color(255, 255, 255));
-        labVersion.setText("FácilEnvío App - Version: ");
-        jPanel1.add(labVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carga.png"))); // NOI18N
@@ -67,19 +57,55 @@ public class PantallaCarga extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaCarga().setVisible(true);
-                PantallaCarga.timer.start();
+                diaPantallaCarga dialog = new diaPantallaCarga(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -88,6 +114,5 @@ public class PantallaCarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JLabel labVersion;
     // End of variables declaration//GEN-END:variables
 }
