@@ -1,8 +1,12 @@
 
 package Formularios;
 
+import Beans.Trabajadores;
+import DAO.TrabajadoresDAO;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class formLogin extends javax.swing.JFrame {
 
@@ -12,6 +16,8 @@ public class formLogin extends javax.swing.JFrame {
 
         ImageIcon icono = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
         setIconImage(icono.getImage());
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -25,17 +31,18 @@ public class formLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         panCerrar1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfiCorreo = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        tfiContra = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        cboxPersonal = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -104,14 +111,14 @@ public class formLogin extends javax.swing.JFrame {
 
         jPanel1.add(panCerrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 0, -1, -1));
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfiCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfiCorreo.setBorder(null);
+        tfiCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfiCorreoActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 270, 20));
+        jPanel1.add(tfiCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 270, 20));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 270, 20));
@@ -122,9 +129,9 @@ public class formLogin extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 270, 20));
 
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPasswordField1.setBorder(null);
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 270, 20));
+        tfiContra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfiContra.setBorder(null);
+        jPanel1.add(tfiContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 270, 20));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -176,6 +183,11 @@ public class formLogin extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Iniciar Sesión");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -193,6 +205,10 @@ public class formLogin extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ISimg.png"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 400, 120));
+
+        cboxPersonal.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        cboxPersonal.setText("Personal autorizado");
+        jPanel1.add(cboxPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,15 +232,47 @@ public class formLogin extends javax.swing.JFrame {
         setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfiCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfiCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfiCorreoActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // TODO add your handling code here:
+        IniciarSesion();
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void IniciarSesion() {
+        TrabajadoresDAO pd = new TrabajadoresDAO();
+        boolean comparar = false;
+        String nom="";
+        ArrayList<Trabajadores> lis = new ArrayList<>();
+        lis = pd.listarTodo();
+        if (tfiCorreo.getText().isEmpty() || tfiContra.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campos vacios / No se puede agregar registro");
+            tfiCorreo.requestFocus();
+        } else {
+            for (int i = 0; i < lis.size(); i++) {
+                if (tfiCorreo.getText().equals(lis.get(i).getCorreo())&&tfiContra.getText().equals(lis.get(i).getContra())){
+                    nom=lis.get(i).getNombre();
+                    comparar = true;
+                }                  
+            }
+            if (comparar == true) {
+                this.setVisible(false);
+                new formPrincipal().setVisible(true);
+                JOptionPane.showMessageDialog(null, "Bienvenido "+nom);
+            } else {
+                JOptionPane.showMessageDialog(this, "Datos incorrectos");
+            }
+        }
+    }
+    
+    
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -256,6 +304,7 @@ public class formLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cboxPersonal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -268,11 +317,11 @@ public class formLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panCerrar;
     private javax.swing.JPanel panCerrar1;
+    private javax.swing.JPasswordField tfiContra;
+    private javax.swing.JTextField tfiCorreo;
     // End of variables declaration//GEN-END:variables
 }
