@@ -1,8 +1,10 @@
-
 package Formularios;
 
 import Beans.Trabajadores;
+import Beans.Usuarios;
 import DAO.TrabajadoresDAO;
+import DAO.UsuariosDAO;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,8 +18,13 @@ public class formLogin extends javax.swing.JFrame {
 
         ImageIcon icono = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
         setIconImage(icono.getImage());
-        
-        
+
+        tfiContra.addActionListener((ActionEvent e) -> {
+            IniciarSesion();
+        });
+        tfiCorreo.addActionListener((ActionEvent e) -> {
+            IniciarSesion();
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -155,26 +162,26 @@ public class formLogin extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addGap(110, 110, 110)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(3, 3, 3)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 400, 90));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 400, 90));
 
         jPanel3.setBackground(new java.awt.Color(255, 0, 0));
 
@@ -208,7 +215,7 @@ public class formLogin extends javax.swing.JFrame {
 
         cboxPersonal.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         cboxPersonal.setText("Personal autorizado");
-        jPanel1.add(cboxPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, -1, -1));
+        jPanel1.add(cboxPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,7 +225,7 @@ public class formLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, Short.MAX_VALUE)
         );
 
         pack();
@@ -238,41 +245,64 @@ public class formLogin extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        // TODO add your handling code here:
         IniciarSesion();
     }//GEN-LAST:event_jLabel8MouseClicked
 
-    private void IniciarSesion() {
-        TrabajadoresDAO pd = new TrabajadoresDAO();
+     private void IniciarSesion() {
         boolean comparar = false;
-        String nom="";
-        ArrayList<Trabajadores> lis = new ArrayList<>();
-        lis = pd.listarTodo();
-        if (tfiCorreo.getText().isEmpty() || tfiContra.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campos vacios / No se puede agregar registro");
-            tfiCorreo.requestFocus();
-        } else {
-            for (int i = 0; i < lis.size(); i++) {
-                if (tfiCorreo.getText().equals(lis.get(i).getCorreo())&&tfiContra.getText().equals(lis.get(i).getContra())){
-                    nom=lis.get(i).getNombre();
-                    comparar = true;
-                }                  
-            }
-            if (comparar == true) {
-                this.setVisible(false);
-                new formPrincipal().setVisible(true);
-                JOptionPane.showMessageDialog(null, "Bienvenido "+nom);
+        String nom = "";
+
+        if (cboxPersonal.isSelected()) {
+            TrabajadoresDAO pd = new TrabajadoresDAO();
+            ArrayList<Trabajadores> lis = new ArrayList<>();
+
+            lis = pd.listarTodo();
+            if (tfiCorreo.getText().isEmpty() || tfiContra.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Llenar correctamente los campos", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Datos incorrectos");
+                for (int i = 0; i < lis.size(); i++) {
+                    if (tfiCorreo.getText().equals(lis.get(i).getCorreo()) && tfiContra.getText().equals(lis.get(i).getContra())) {
+                        nom = lis.get(i).getNombre();
+                        comparar = true;
+                    }
+                }
+                if (comparar == true) {
+                    this.dispose();
+                    new formPrincipalAdmin().setVisible(true);
+                    JOptionPane.showMessageDialog(null, "¡Bienvenido/a " + nom + "!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            UsuariosDAO pd = new UsuariosDAO();
+            ArrayList<Usuarios> lis = new ArrayList<>();
+
+            lis = pd.listarTodo();
+            if (tfiCorreo.getText().isEmpty() || tfiContra.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Llenar correctamente los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                for (int i = 0; i < lis.size(); i++) {
+                    if (tfiCorreo.getText().equals(lis.get(i).getCorreo()) && tfiContra.getText().equals(lis.get(i).getContra())) {
+                        nom = lis.get(i).getNombre();
+                        comparar = true;
+                    }
+                }
+                if (comparar == true) {
+                    this.dispose();
+                    new formPrincipalAdmin().setVisible(true);
+                    JOptionPane.showMessageDialog(null, "¡Bienvenido/a " + nom + "!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
-    
-    
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -280,19 +310,27 @@ public class formLogin extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formLogin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

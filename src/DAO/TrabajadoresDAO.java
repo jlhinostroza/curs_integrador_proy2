@@ -19,7 +19,7 @@ public class TrabajadoresDAO {
     
      public ArrayList<Trabajadores> listarTodo() {
         try {
-            String sql =  "select * from trabajador ";
+            String sql =  "SELECT * FROM trabajador";
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
