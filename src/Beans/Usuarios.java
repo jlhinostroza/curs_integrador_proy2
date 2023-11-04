@@ -2,8 +2,8 @@
 package Beans;
 
 public class Usuarios {
-    private String id, nombre, correo, contra;
-    private int ciudad_id, numero, dni;
+    private String id, nombre, correo, contra, ciudad_id;
+    private int numero, dni;
 
     public String getId() {
         return id;
@@ -53,13 +53,11 @@ public class Usuarios {
         this.contra = contra;
     }
 
-    public int getCiudad_id() {
+    public String getCiudad_id() {
         return ciudad_id;
     }
 
-    public void setCiudad_id(int ciudad_id) {
+    public void setCiudad_id(String ciudad_id) {
         this.ciudad_id = ciudad_id;
     }
-    
-    
 }

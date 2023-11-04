@@ -31,12 +31,44 @@ public class UsuariosDAO {
                 p.setNumero(rs.getInt("remNumero"));
                 p.setDni(rs.getInt("remDNI"));
                 p.setContra(rs.getString("remContrasena"));
-                p.setCiudad_id(rs.getInt("Ciudad_ID"));
+                p.setCiudad_id(rs.getString("Ciudad_ID"));
                 lista.add(p);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
+    }
+     
+     public boolean registrarUsuario(Usuarios usuario) {
+        try {
+            String sql = "INSERT INTO remitente (remNombre, remCorreo, remNumero, remDNI, remContrasena, Ciudad_ID) VALUES (?, ?, ?, ?, ?, ?)";
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getCorreo());
+            ps.setInt(3, usuario.getNumero());
+            ps.setInt(4, usuario.getDni());
+            ps.setString(5, usuario.getContra());
+            ps.setString(6, usuario.getCiudad_id());
+            
+            int resultado = ps.executeUpdate();
+            
+            return resultado > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
