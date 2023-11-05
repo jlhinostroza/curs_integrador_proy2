@@ -28,7 +28,7 @@ public class formRegistrar extends javax.swing.JFrame {
 
         DepartamentosDAO departamentosDAO = new DepartamentosDAO();
         ArrayList<Departamentos> departamentos = departamentosDAO.listarTodo();
-        final ArrayList<Provincias> provincias = new ArrayList<>(); // Declarar como final
+        final ArrayList<Provincias> provincias = new ArrayList<>();
 
         // Agregar la opción predeterminada al ComboBox de provincias
         comProvincia.addItem("--- Seleccione una provincia ---");
