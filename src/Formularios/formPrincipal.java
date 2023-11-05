@@ -7,9 +7,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Clases.RellenarCombos;
+import java.awt.event.ItemEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class formPrincipal extends javax.swing.JFrame {
-
+    RellenarCombos re = new RellenarCombos();
     public formPrincipal() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -19,6 +24,8 @@ public class formPrincipal extends javax.swing.JFrame {
         setIconImage(icono.getImage());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        re.RellenarComboBoxDepartamentos("depNombre", jComboBoxDepartamento1);
+        re.RellenarComboBoxDepartamentos("depNombre", jComboBoxDepartamento2);
         
         
     }
@@ -32,6 +39,24 @@ public class formPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         scrCotizador = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxDepartamento1 = new javax.swing.JComboBox<>();
+        jComboBoxCiudad1 = new javax.swing.JComboBox<>();
+        jComboBoxDepartamento2 = new javax.swing.JComboBox<>();
+        jComboBoxCiudad2 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldPeso = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldAncho = new javax.swing.JTextField();
+        jTextFieldLargo = new javax.swing.JTextField();
+        jTextFieldAlto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabelPrecioCotizacion = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         scrRegEnvio = new javax.swing.JScrollPane();
         scrTracking = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -81,6 +106,153 @@ public class formPrincipal extends javax.swing.JFrame {
         jTabbedPane1.addTab("Inicio", scrInicio);
 
         scrCotizador.setBorder(null);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setText("De");
+
+        jLabel2.setText("A");
+
+        jComboBoxDepartamento1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Departamento---" }));
+        jComboBoxDepartamento1.setPreferredSize(new java.awt.Dimension(150, 22));
+        jComboBoxDepartamento1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDepartamento1ItemStateChanged(evt);
+            }
+        });
+
+        jComboBoxCiudad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Ciudad---" }));
+        jComboBoxCiudad1.setPreferredSize(new java.awt.Dimension(150, 22));
+
+        jComboBoxDepartamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Departamento---" }));
+        jComboBoxDepartamento2.setPreferredSize(new java.awt.Dimension(150, 22));
+        jComboBoxDepartamento2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDepartamento2ItemStateChanged(evt);
+            }
+        });
+
+        jComboBoxCiudad2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Ciudad---" }));
+        jComboBoxCiudad2.setPreferredSize(new java.awt.Dimension(150, 22));
+
+        jLabel3.setText("Peso");
+
+        jLabel4.setText("Ancho");
+
+        jLabel5.setText("Largo");
+
+        jLabel6.setText("Alto");
+
+        jPanel4.setBackground(new java.awt.Color(255, 51, 51));
+
+        jLabelPrecioCotizacion.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabelPrecioCotizacion.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPrecioCotizacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelPrecioCotizacion.setText("Costo");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPrecioCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPrecioCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jButton1.setText("Cotizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jComboBoxDepartamento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxCiudad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jComboBoxDepartamento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxCiudad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jTextFieldPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldAncho, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldAlto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 281, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxDepartamento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxCiudad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxDepartamento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxCiudad2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAncho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldLargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAlto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+
+        scrCotizador.setViewportView(jPanel3);
+
         jTabbedPane1.addTab("Cotizador", scrCotizador);
 
         scrRegEnvio.setBorder(null);
@@ -163,6 +335,53 @@ public class formPrincipal extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jComboBoxDepartamento1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDepartamento1ItemStateChanged
+        String nombre;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (this.jComboBoxDepartamento1.getSelectedIndex()>0) {
+                jComboBoxCiudad1.removeAllItems();
+                nombre=(String) jComboBoxDepartamento1.getSelectedItem();
+                jComboBoxCiudad1.addItem("---Ciudad---");
+                re.RellenarComboBoxCiudades(nombre,"ciuNombre", jComboBoxCiudad1);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxDepartamento1ItemStateChanged
+
+    private void jComboBoxDepartamento2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDepartamento2ItemStateChanged
+        String nombre;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (this.jComboBoxDepartamento2.getSelectedIndex()>0) {
+                jComboBoxCiudad2.removeAllItems();
+                nombre=(String) jComboBoxDepartamento2.getSelectedItem();
+                jComboBoxCiudad2.addItem("---Ciudad---");
+                re.RellenarComboBoxCiudades(nombre,"ciuNombre", jComboBoxCiudad2);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxDepartamento2ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int ancho, largo, alto, peso, costo;
+        if (this.jTextFieldAlto.getText().isEmpty() || this.jTextFieldAncho.getText().isEmpty() || this.jTextFieldLargo.getText().isEmpty() || this.jTextFieldPeso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos", "Recuerde", JOptionPane.HEIGHT);
+        }else{
+            if (this.jComboBoxDepartamento1.getSelectedIndex()>0 || this.jComboBoxDepartamento2.getSelectedIndex()>0) {
+                if (this.jComboBoxCiudad1.getSelectedIndex()>0 || this.jComboBoxCiudad2.getSelectedIndex()>0) {
+                    ancho = Integer.parseInt(jTextFieldAncho.getText());
+                    largo = Integer.parseInt(jTextFieldLargo.getText());
+                    alto = Integer.parseInt(jTextFieldAlto.getText());
+                    peso = Integer.parseInt(jTextFieldPeso.getText());
+                    costo=(ancho*largo*alto)*4;
+                    costo+=peso*3;
+                    jLabelPrecioCotizacion.setText("S/. "+costo);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Elija una cidudad", "Recuerde", JOptionPane.HEIGHT);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Elija un departamento", "Recuerde", JOptionPane.HEIGHT);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -195,13 +414,31 @@ public class formPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBoxCiudad1;
+    private javax.swing.JComboBox<String> jComboBoxCiudad2;
+    private javax.swing.JComboBox<String> jComboBoxDepartamento1;
+    private javax.swing.JComboBox<String> jComboBoxDepartamento2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelPrecioCotizacion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextFieldAlto;
+    private javax.swing.JTextField jTextFieldAncho;
+    private javax.swing.JTextField jTextFieldLargo;
+    private javax.swing.JTextField jTextFieldPeso;
     private javax.swing.JMenuItem mitSalir;
     private javax.swing.JMenuItem mitSalir1;
     private javax.swing.JScrollPane scrCotizador;
