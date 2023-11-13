@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class RellenarCombos {
     public void RellenarComboBoxDepartamentos(String valor, JComboBox combo) {
-        String sql = "SELECT * FROM `departamento` ORDER BY depID ASC LIMIT 2";
+        String sql = "SELECT * FROM `departamento` ORDER BY depID ASC";
         Statement st;
         Util.MySQLConexion con = new Util.MySQLConexion();
         Connection conexion = con.getConexion();
