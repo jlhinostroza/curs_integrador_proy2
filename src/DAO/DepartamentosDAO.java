@@ -1,7 +1,7 @@
 
 package DAO;
 
-import Beans.Departamentos;
+import Modelo.Departamentos;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

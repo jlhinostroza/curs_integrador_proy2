@@ -1,7 +1,7 @@
 
 package DAO;
 
-import Beans.Trabajadores;
+import Modelo.Trabajadores;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,5 +1,5 @@
 
-package Beans;
+package Modelo;
 
 public class Provincias {
     private String nombre, id, depID;

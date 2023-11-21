@@ -1,7 +1,7 @@
 package Formularios;
 
-import Beans.Trabajadores;
-import Beans.Usuarios;
+import Modelo.Trabajadores;
+import Modelo.Usuarios;
 import Clases.DatosPrograma;
 import DAO.TrabajadoresDAO;
 import DAO.UsuariosDAO;
@@ -11,6 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class formLogin extends javax.swing.JFrame {
+
+    public static int i;
+    public static ArrayList<Usuarios> usuariosList = new ArrayList<>();
+    public static ArrayList<Trabajadores> trabajadoresList = new ArrayList<>();
 
     public formLogin() {
         initComponents();
@@ -189,53 +193,67 @@ public class formLogin extends javax.swing.JFrame {
         IniciarSesion();
     }//GEN-LAST:event_jLabel8MouseClicked
 
-     private void IniciarSesion() {
+    private void IniciarSesion() {
         boolean comparar = false;
         String nom = "";
 
         if (cboxPersonal.isSelected()) {
             TrabajadoresDAO pd = new TrabajadoresDAO();
-            ArrayList<Trabajadores> lis = new ArrayList<>();
 
-            lis = pd.listarTodo();
+            trabajadoresList = pd.listarTodo();
             if (tfiCorreo.getText().isEmpty() || tfiContra.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Llenar correctamente los campos", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                for (int i = 0; i < lis.size(); i++) {
-                    if (tfiCorreo.getText().equals(lis.get(i).getCorreo()) && tfiContra.getText().equals(lis.get(i).getContra())) {
-                        nom = lis.get(i).getNombre();
+            } else {             
+                for (i = 0; i < trabajadoresList.size(); i++) {
+                    if (tfiCorreo.getText().equals(trabajadoresList.get(i).getCorreo()) && tfiContra.getText().equals(trabajadoresList.get(i).getContra())) {
+                        nom = trabajadoresList.get(i).getNombre();
                         comparar = true;
+                        break;
                     }
                 }
-                if (comparar == true) {
+
+                if (comparar) {
                     this.dispose();
-                    new formPrincipalAdmin().setVisible(true);
-                    JOptionPane.showMessageDialog(null, "¡Bienvenido/a " + nom + "!");
+                    // Verificar que i sea menor que usuariosList.size() antes de acceder al elemento
+                    if (i < trabajadoresList.size()) {
+                        new formPrincipalAdmin(trabajadoresList.get(i).getNombre(), trabajadoresList.get(i).getId(), trabajadoresList.get(i).getTipo()).setVisible(true);
+                        JOptionPane.showMessageDialog(null, "¡Bienvenido/a " + nom + "!");
+                    } else {
+                        // Lógica adicional o mensaje de error si es necesario
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
         } else {
             UsuariosDAO pd = new UsuariosDAO();
-            ArrayList<Usuarios> lis = new ArrayList<>();
 
-            lis = pd.listarTodo();
+            usuariosList = pd.listarTodo();
             if (tfiCorreo.getText().isEmpty() || tfiContra.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Llenar correctamente los campos", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                for (int i = 0; i < lis.size(); i++) {
-                    if (tfiCorreo.getText().equals(lis.get(i).getCorreo()) && tfiContra.getText().equals(lis.get(i).getContra())) {
-                        nom = lis.get(i).getNombre();
+                for (i = 0; i < usuariosList.size(); i++) {
+                    if (tfiCorreo.getText().equals(usuariosList.get(i).getCorreo()) && tfiContra.getText().equals(usuariosList.get(i).getContra())) {
+                        nom = usuariosList.get(i).getNombre();
                         comparar = true;
+                        break;
                     }
                 }
-                if (comparar == true) {
+
+                if (comparar) {
                     this.dispose();
-                    new formPrincipalAdmin().setVisible(true);
-                    JOptionPane.showMessageDialog(null, "¡Bienvenido/a " + nom + "!");
+                    // Verificar que i sea menor que usuariosList.size() antes de acceder al elemento
+                    if (i < usuariosList.size()) {
+                        new formPrincipal(usuariosList.get(i).getNombre(), usuariosList.get(i).getId()).setVisible(true);
+                        JOptionPane.showMessageDialog(null, "¡Bienvenido/a " + nom + "!");
+                    } else {
+                        // Lógica adicional o mensaje de error si es necesario
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
         }
     }

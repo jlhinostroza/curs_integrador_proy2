@@ -1,8 +1,8 @@
 package Formularios;
 
-import Beans.Departamentos;
-import Beans.Provincias;
-import Beans.Usuarios;
+import Modelo.Departamentos;
+import Modelo.Provincias;
+import Modelo.Usuarios;
 import Clases.DatosPrograma;
 import DAO.DepartamentosDAO;
 import DAO.ProvinciasDAO;
@@ -44,8 +44,11 @@ public class formRegistrar extends javax.swing.JFrame {
 
                 if (selectedDepartamentoIndex > 0) {
                     int selectedDepartamentoID = departamentos.get(selectedDepartamentoIndex - 1).getId();
-
+                    
+                    
+                    
                     ProvinciasDAO provinciasDAO = new ProvinciasDAO();
+                    provincias.clear();
                     provincias.addAll(provinciasDAO.listarPorDepartamento(selectedDepartamentoID));
 
                     comProvincia.removeAllItems();
@@ -61,18 +64,7 @@ public class formRegistrar extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedProvinciaIndex = comProvincia.getSelectedIndex();
-
-                if (selectedProvinciaIndex > 0) {
-                    String selectedProvinciaID = provincias.get(selectedProvinciaIndex - 1).getId();
-                }
-            }
-        });
-
-        comProvincia.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedProvinciaIndex = comProvincia.getSelectedIndex();
-
+                
                 if (selectedProvinciaIndex > 0) {
                     selectedProvinciaID = provincias.get(selectedProvinciaIndex - 1).getId();
                 }
@@ -289,7 +281,6 @@ public class formRegistrar extends javax.swing.JFrame {
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 560, 270, -1));
 
         comProvincia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        comProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccione una provincia  ---" }));
         jPanel3.add(comProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 580, 270, -1));
         jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 690, 20));
 
@@ -341,7 +332,7 @@ public class formRegistrar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
         );
 
         pack();

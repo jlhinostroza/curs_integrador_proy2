@@ -1,5 +1,5 @@
 
-package Beans;
+package Modelo;
 
 public class Usuarios {
     private String id, nombre, correo, contra, ciudad_id;

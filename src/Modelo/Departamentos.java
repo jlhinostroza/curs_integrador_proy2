@@ -1,4 +1,4 @@
-package Beans;
+package Modelo;
 
 public class Departamentos {
 

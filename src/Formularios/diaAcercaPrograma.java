@@ -10,7 +10,7 @@ public class diaAcercaPrograma extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(this);
-        this.setTitle("Fácil Envío - Acerca del programa");
+        this.setTitle("FácilEnvío - Acerca del programa");
         
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         

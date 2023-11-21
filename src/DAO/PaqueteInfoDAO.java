@@ -1,6 +1,6 @@
 package DAO;
 
-import Beans.PaqueteInfo;
+import Modelo.PaqueteInfo;
 import Util.MySQLConexion;
 
 import java.sql.Connection;
@@ -108,5 +108,57 @@ public class PaqueteInfoDAO {
             }
         }
         return paquete;
+    }
+
+    public boolean actualizarEstadoEnvio(String paqueteID, int nuevoEstado) {
+        String sql = "UPDATE envio SET Envio_estado_ID = ? WHERE envID = (SELECT Envio_ID FROM paquete WHERE paqID = ?)";
+        con = cn.getConexion();
+        try (PreparedStatement ps1 = con.prepareStatement(sql)) {
+            ps1.setInt(1, nuevoEstado);
+            ps1.setString(2, paqueteID);
+
+            int rowsUpdated = ps1.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ArrayList<PaqueteInfo> buscarPaquetesPorRemitenteID(String remitenteID) {
+        ArrayList<PaqueteInfo> paquetes = new ArrayList<>();
+        try {
+            String sql = "SELECT p.paqID, ee.estDescripcion " +
+                         "FROM paquete p " +
+                         "JOIN envio e ON p.Envio_ID = e.envID " +
+                         "JOIN envio_estado ee ON e.Envio_estado_ID = ee.estID " +
+                         "JOIN remitente r ON p.Remitente_ID = r.remID " +
+                         "WHERE r.remID = ?";
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, remitenteID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                PaqueteInfo paquete = new PaqueteInfo();
+                paquete.setPaqID(rs.getString("paqID"));
+                paquete.setEstDescripcion(rs.getString("estDescripcion"));
+                paquetes.add(paquete);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaqueteInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PaqueteInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return paquetes;
     }
 }

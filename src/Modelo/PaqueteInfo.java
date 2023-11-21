@@ -1,5 +1,5 @@
 
-package Beans;
+package Modelo;
 
 public class PaqueteInfo {
     private String paqID, remitenteNombre, remitenteCiudad, destinatarioCiudad, envID, envFechaSalida, envFechaLlegada, estDescripcion;
