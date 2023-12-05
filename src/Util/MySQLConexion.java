@@ -1,6 +1,7 @@
 package Util;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class MySQLConexion {
 
@@ -17,6 +18,7 @@ public class MySQLConexion {
             System.out.println("No hay Driver!!");
         } catch (SQLException ex) {
             System.out.println("Error con la BD ");
+            JOptionPane.showMessageDialog(null, "No se puedo conectar a internet", "Error de conexión con la base de datos", JOptionPane.ERROR_MESSAGE);
         }
         return con;
     }

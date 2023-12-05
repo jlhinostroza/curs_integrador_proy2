@@ -14,7 +14,7 @@ public class diaPantallaCarga extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(this);
-        this.setTitle("HipoTest - Version: " + DatosPrograma.version);
+        this.setTitle("FácilEnvío Desktop App - Version: " + DatosPrograma.version);
         ImageIcon icono = new ImageIcon(getClass().getResource("/Imagenes/icono.png"));
         setIconImage(icono.getImage());
 

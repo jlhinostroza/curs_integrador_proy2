@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Clases;
 
 public class Operaciones {
@@ -32,8 +29,8 @@ public class Operaciones {
         this.peso=Float.parseFloat(speso);
     }
     public float getCotizacion(){
-        costo=(ancho*largo*alto)*(1/100);
-        costo+=peso*(1/4);
+        costo=(float) ((ancho*largo*alto)*(1.0/100.0));
+        costo+=peso*(1.0/4.0);
         return costo;
     }
 }

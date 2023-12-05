@@ -3,8 +3,10 @@ package Clases;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
-public class metodosDefectoVentana extends javax.swing.JFrame{
+public class metodosVentana extends javax.swing.JFrame{
     public void metodosventana(String id){
         this.setLocationRelativeTo(this);
         this.setTitle("FácilEnvío App - User: " + id);
@@ -13,5 +15,15 @@ public class metodosDefectoVentana extends javax.swing.JFrame{
         setIconImage(icono.getImage());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+    
+    public static void mostarPanel(JPanel panMayor, JPanel panMenor, int w, int h){
+        panMenor.setSize(w, h);
+        panMenor.setLocation(0, 0);
+        
+        panMayor.removeAll();
+        panMayor.add(panMenor, BorderLayout.CENTER);
+        panMayor.revalidate();
+        panMayor.repaint();
     }
 }

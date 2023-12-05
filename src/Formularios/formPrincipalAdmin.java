@@ -105,7 +105,6 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
         jPanel13 = new javax.swing.JPanel();
         butActualizar = new javax.swing.JLabel();
-        scrTracking = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mitSalir = new javax.swing.JMenuItem();
@@ -570,9 +569,6 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
 
         tabMenu.addTab("Estado de envío", scrEstEnvio);
 
-        scrTracking.setBorder(null);
-        tabMenu.addTab("Tracking", scrTracking);
-
         jMenu1.setText("Archivo");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -935,7 +931,6 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrControlEnvios;
     private javax.swing.JScrollPane scrEstEnvio;
     private javax.swing.JScrollPane scrInicio;
-    private javax.swing.JScrollPane scrTracking;
     private javax.swing.JTabbedPane tabMenu;
     private javax.swing.JTable tabPaquete;
     private javax.swing.JTextField tfiId;
