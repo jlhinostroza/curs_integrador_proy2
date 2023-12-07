@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class diaTerminos extends javax.swing.JDialog {
 
-    public boolean aceptTerminos = false;
+    public static boolean aceptTerminos = false;
 
     public diaTerminos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

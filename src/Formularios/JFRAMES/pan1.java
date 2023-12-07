@@ -4,6 +4,7 @@ package Formularios.JFRAMES;
 import Clases.Operaciones;
 import Clases.RellenarCombos;
 import Clases.metodosVentana;
+import DAO.UsuariosDAO;
 import Formularios.formPrincipal;
 import static Formularios.formPrincipal.content;
 import java.awt.event.ItemEvent;
@@ -18,8 +19,9 @@ public class pan1 extends javax.swing.JPanel {
     public pan1(formPrincipal inst) {
         this.inst = inst;
         initComponents();
-        re.RellenarComboBoxDepartamentos("depNombre", jComboBoxDepartamento1);
         re.RellenarComboBoxDepartamentos("depNombre", jComboBoxDepartamento2);
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        labCiuDepUsu.setText(usuariosDAO.obtenerNombreDepartamentoCiudadPorIDUsuario(inst.id));
     }
 
     @SuppressWarnings("unchecked")
@@ -29,8 +31,6 @@ public class pan1 extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxDepartamento1 = new javax.swing.JComboBox<>();
-        jComboBoxCiudad1 = new javax.swing.JComboBox<>();
         jComboBoxDepartamento2 = new javax.swing.JComboBox<>();
         jComboBoxCiudad2 = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
@@ -38,6 +38,7 @@ public class pan1 extends javax.swing.JPanel {
         jLabel27 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        labCiuDepUsu = new javax.swing.JLabel();
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -46,19 +47,6 @@ public class pan1 extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("A");
-
-        jComboBoxDepartamento1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxDepartamento1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Departamento---" }));
-        jComboBoxDepartamento1.setPreferredSize(new java.awt.Dimension(150, 22));
-        jComboBoxDepartamento1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxDepartamento1ItemStateChanged(evt);
-            }
-        });
-
-        jComboBoxCiudad1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBoxCiudad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Ciudad---" }));
-        jComboBoxCiudad1.setPreferredSize(new java.awt.Dimension(150, 22));
 
         jComboBoxDepartamento2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBoxDepartamento2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Departamento---" }));
@@ -122,6 +110,9 @@ public class pan1 extends javax.swing.JPanel {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
+        labCiuDepUsu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labCiuDepUsu.setText("Ciudad, Depatamento");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -132,15 +123,12 @@ public class pan1 extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labCiuDepUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jComboBoxDepartamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)
-                                .addComponent(jComboBoxCiudad1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jComboBoxDepartamento2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,11 +149,9 @@ public class pan1 extends javax.swing.JPanel {
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1)
-                .addGap(12, 12, 12)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxDepartamento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCiudad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labCiuDepUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,18 +178,6 @@ public class pan1 extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxDepartamento1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDepartamento1ItemStateChanged
-        String nombre;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (this.jComboBoxDepartamento1.getSelectedIndex() > 0) {
-                jComboBoxCiudad1.removeAllItems();
-                nombre = (String) jComboBoxDepartamento1.getSelectedItem();
-                jComboBoxCiudad1.addItem("---Ciudad---");
-                re.RellenarComboBoxCiudades(nombre, "ciuNombre", jComboBoxCiudad1);
-            }
-        }
-    }//GEN-LAST:event_jComboBoxDepartamento1ItemStateChanged
-
     private void jComboBoxDepartamento2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDepartamento2ItemStateChanged
         String nombre;
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -227,9 +201,9 @@ public class pan1 extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBoxCiudad1;
+    public static javax.swing.JComboBox<String> jComboBoxCiudad2;/*
     private javax.swing.JComboBox<String> jComboBoxCiudad2;
-    private javax.swing.JComboBox<String> jComboBoxDepartamento1;
+    */
     private javax.swing.JComboBox<String> jComboBoxDepartamento2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -239,5 +213,6 @@ public class pan1 extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel labCiuDepUsu;
     // End of variables declaration//GEN-END:variables
 }

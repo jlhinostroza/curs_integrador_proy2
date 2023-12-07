@@ -1,23 +1,45 @@
-
 package Formularios.JFRAMES;
 
 import Clases.metodosVentana;
 import Formularios.formPrincipal;
 import static Formularios.formPrincipal.content;
+import javax.swing.ButtonModel;
 
 public class pan4 extends javax.swing.JPanel {
-    
+
     private formPrincipal inst;
-    
+    public static int valorMetodo;
+
     public pan4(formPrincipal inst) {
         this.inst = inst;
         initComponents();
-        
+
         buttonGroup2.add(cbo1);
         buttonGroup2.add(cbo2);
         buttonGroup2.add(cbo3);
         buttonGroup2.add(cbo4);
-        
+
+        ButtonModel selectedButton = buttonGroup2.getSelection();
+
+        if (selectedButton != null) {
+             String valorSeleccionado = selectedButton.getActionCommand();
+             switch (valorSeleccionado) {
+                case "Transferencia bancaria":
+                    valorMetodo = 1;
+                    break;
+                case "Tarjera de crédito / débito":
+                    valorMetodo = 2;
+                    break;
+                case "Yape / Plin":
+                    valorMetodo = 3;
+                    break;
+                case "Pago en agente":
+                    valorMetodo = 4;
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

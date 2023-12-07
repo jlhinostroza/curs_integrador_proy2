@@ -23,7 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class formPrincipal extends javax.swing.JFrame {
 
-    private String nombre, id;
+    public String nombre;
+    public String id;
     private static int currentIndex = 0;
     private static Timer timer;
 

@@ -2,16 +2,41 @@ package Formularios;
 
 import Modelo.PaqueteInfo;
 import DAO.PaqueteInfoDAO;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 public class formPrincipalAdmin extends javax.swing.JFrame {
     
     private String nombre, id;
     private int tipo;
+    
+    private int ancho;
+    private int alto;
+    private static int currentIndex = 0;
+    private static Timer timer;
+
+    public int getAncho() {
+        return ancho;
+    }
+
+    public int getAlto() {
+        return alto;
+    }
+
+    private String[] iconos = {
+        "/Imagenes/img1.png",
+        "/Imagenes/img2.png",
+        "/Imagenes/img3.png",
+        "/Imagenes/img4.png"
+    };
 
     public formPrincipalAdmin(String nombre, String id, int tipo) {
         
@@ -28,12 +53,12 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        DefaultTableModel model = (DefaultTableModel) tabPaquete.getModel(); // Obtén el modelo de la tabla
+        DefaultTableModel modelPaqInfo = (DefaultTableModel) tabPaquete.getModel(); // Obtén el modelo de la tabla
 
         PaqueteInfoDAO paqueteInfoDAO = new PaqueteInfoDAO();
         ArrayList<PaqueteInfo> paquetes = paqueteInfoDAO.listarInfoPaquetes();
         for (PaqueteInfo paquete : paquetes) {
-            model.addRow(new Object[]{
+            modelPaqInfo.addRow(new Object[]{
                 paquete.getPaqID(),
                 paquete.getPaqPeso(),
                 paquete.getPaqVolumen(),
@@ -57,6 +82,27 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         if (tipo == 2){
             menMantenimiento.setVisible(false);
         }
+        
+        //JFRAME INICIO ------------------------------------------------------------------
+        DefaultTableModel paqInfo = (DefaultTableModel) jTable1.getModel();
+        paqInfo.setRowCount(0);
+        ArrayList<PaqueteInfo> paquetes1 = paqueteInfoDAO.obtenerPaquetesEnEstado();
+        for (PaqueteInfo paquete : paquetes1) {
+        paqInfo.addRow(new Object[]{
+        paquete.getPaqID(),
+        paquete.getEstDescripcion()
+        });
+        }
+        
+        Timer timer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ActualizarIcono(labFoto);
+            }
+        });
+        timer.start();
+        //--------------------------------------------------------------------------------
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -65,16 +111,16 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         tabMenu = new javax.swing.JTabbedPane();
-        scrInicio = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        scrInicio1 = new javax.swing.JScrollPane();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        labFoto = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         labNombre = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         labCodigo = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         scrControlEnvios = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
@@ -112,6 +158,7 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         menMantenimiento = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -120,45 +167,45 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         tabMenu.setBackground(new java.awt.Color(51, 51, 51));
         tabMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        scrInicio.setBorder(null);
+        scrInicio1.setBorder(null);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel10.setBackground(new java.awt.Color(51, 51, 51));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 74, Short.MAX_VALUE)
         );
 
-        jLabel6.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carga.png"))); // NOI18N
-        jLabel6.setBorder(new javax.swing.border.MatteBorder(null));
+        labFoto.setBackground(new java.awt.Color(255, 0, 0));
+        labFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carga.png")));
+        labFoto.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Paquetes en proceso de envío");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setText("Paquetes Enviados");
 
-        labNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labNombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         labNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labNombre.setText("NOMBRE COMPLETO");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel9.setText("¡Bienvenido/a!");
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel10.setText("¡Bienvenido/a!");
 
-        labCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labCodigo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labCodigo.setText("NOMBRE COMPLETO");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("ID de usuario:");
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("ID de usuario:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,67 +223,71 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane6.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(labNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(32, 32, 32)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 515, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(labNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                                            .addComponent(labCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(74, 74, 74))))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(53, 53, 53))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)))
+                .addComponent(labFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(labFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(labNombre)
                         .addGap(34, 34, 34)
-                        .addComponent(jLabel11)
+                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labCodigo)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(11, 11, 11))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)))
-                .addGap(13, 13, 13))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(104, 104, 104))
         );
 
-        scrInicio.setViewportView(jPanel1);
+        scrInicio1.setViewportView(jPanel9);
 
-        tabMenu.addTab("Inicio", scrInicio);
+        tabMenu.addTab("Inicio", scrInicio1);
 
         scrControlEnvios.setBorder(null);
 
@@ -325,7 +376,7 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
                         .addGap(56, 56, 56))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +411,7 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addGap(42, 42, 42))
         );
 
@@ -514,7 +565,7 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
                         .addGap(85, 85, 85)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(cheEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                                .addComponent(cheEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                                 .addGap(107, 107, 107))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jScrollPane2)
@@ -558,7 +609,7 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
                         .addComponent(radEst4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cheEditar)
@@ -609,6 +660,10 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         });
         menMantenimiento.add(jMenuItem3);
 
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem4.setText("Mantenimietno de envíos");
+        menMantenimiento.add(jMenuItem4);
+
         jMenuBar1.add(menMantenimiento);
 
         jMenu2.setText("Ayuda");
@@ -631,11 +686,11 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+            .addComponent(tabMenu)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addComponent(tabMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
 
         pack();
@@ -844,6 +899,25 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void ActualizarIcono(JLabel label) {
+        if (currentIndex < iconos.length) {
+            // Actualizar el ícono del JLabel escalado
+            label.setIcon(escalarIcono(iconos[currentIndex]));
+
+            // Incrementar el índice o reiniciar si llegamos al final del array
+            currentIndex = (currentIndex + 1) % iconos.length;
+        }
+    }
+    
+    private ImageIcon escalarIcono(String ruta) {
+        int ancho = labFoto.getWidth();
+        int alto = labFoto.getHeight();
+        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource(ruta));
+        Image imgOriginal = iconoOriginal.getImage();
+        Image imgEscalada = imgOriginal.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        return new ImageIcon(imgEscalada);
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -890,36 +964,37 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox cheEditar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labCodigo;
+    private javax.swing.JLabel labFoto;
     private javax.swing.JLabel labNombre;
     private javax.swing.JMenu menMantenimiento;
     private javax.swing.JMenuItem mitSalir;
@@ -930,7 +1005,7 @@ public class formPrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JRadioButton radEst4;
     private javax.swing.JScrollPane scrControlEnvios;
     private javax.swing.JScrollPane scrEstEnvio;
-    private javax.swing.JScrollPane scrInicio;
+    private javax.swing.JScrollPane scrInicio1;
     private javax.swing.JTabbedPane tabMenu;
     private javax.swing.JTable tabPaquete;
     private javax.swing.JTextField tfiId;

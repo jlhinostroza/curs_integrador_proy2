@@ -161,4 +161,42 @@ public class PaqueteInfoDAO {
         }
         return paquetes;
     }
+    
+    public ArrayList<PaqueteInfo> obtenerPaquetesEnEstado() {
+        ArrayList<PaqueteInfo> paquetes = new ArrayList<>();
+        try {
+            String sql = "SELECT p.paqID, ee.estDescripcion " +
+                         "FROM paquete p " +
+                         "JOIN envio e ON p.Envio_ID = e.envID " +
+                         "JOIN envio_estado ee ON e.Envio_estado_ID = ee.estID " +
+                         "JOIN remitente r ON p.Remitente_ID = r.remID " +
+                         "WHERE ee.estDescripcion IN (?, ?, ?)";
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "En cola de envío");
+            ps.setString(2, "Preparando su salida de la oficina");
+            ps.setString(3, "En transporte");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                PaqueteInfo paquete = new PaqueteInfo();
+                paquete.setPaqID(rs.getString("paqID"));
+                paquete.setEstDescripcion(rs.getString("estDescripcion"));
+                paquetes.add(paquete);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaqueteInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PaqueteInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return paquetes;
+    }
 }

@@ -1,54 +1,55 @@
-
 package Formularios.JFRAMES;
 
 import Clases.metodosVentana;
+import DAO.RegEnvioDAO;
 import Formularios.diaTerminos;
 import Formularios.formPrincipal;
 import static Formularios.formPrincipal.content;
+import javax.swing.JOptionPane;
+import Modelo.RegEnvio;
 
 public class pan5 extends javax.swing.JPanel {
-    
+
     private formPrincipal inst;
-    
+
     public pan5(formPrincipal inst) {
         this.inst = inst;
         initComponents();
-        
+
         LlenarTextPane();
     }
-    
-    private void LlenarTextPane(){
-        String resumen = null;
-        tpaResumen.setText(resumen);
-        
-        resumen += "Datos del remitente --------------------------\n"
+
+    private void LlenarTextPane() {
+        String resumen = "Datos del remitente --------------------------\n"
                 + "Nombre completo: \n"
                 + "ID de usuario: \n"
                 + "Correo electrónico: \n"
                 + "Número telefónico: \n"
                 + "DNI: \n"
                 + "\n"
-                +  "Datos del destinatario ------------------------\n"
+                + "Datos del destinatario ------------------------\n"
                 + "Nombre completo: \n"
                 + "Correo electrónico: \n"
                 + "Número telefónico: \n"
                 + "DNI: \n"
                 + "\n"
-                +  "Datos del paquete -----------------------------\n"
+                + "Datos del paquete -----------------------------\n"
                 + "Peso (Kg): \n"
                 + "Volumen (cm³): \n"
                 + "Descripción corta: \n"
                 + "\n"
-                +  "Datos del envío -------------------------------\n"
+                + "Datos del envío -------------------------------\n"
                 + "Ciudad de origen: \n"
                 + "Ciudad de destino: \n"
                 + "Fecha de salida: \n"
                 + "Fecha de llegada: \n"
                 + "\n"
-                +  "Total -----------------------------------------\n"
+                + "Total -----------------------------------------\n"
                 + "Costo total: ";
+        
+        tpaResumen.setText(resumen);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,7 +68,7 @@ public class pan5 extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(962, 648));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(815, 902));
+        jPanel1.setPreferredSize(new java.awt.Dimension(831, 902));
 
         jPanel4.setBackground(new java.awt.Color(255, 0, 0));
 
@@ -115,16 +116,13 @@ public class pan5 extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane2)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -187,7 +185,48 @@ public class pan5 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
+        String idEnvio, idDestinatario, idFactura, idPaquete;
+        if (diaTerminos.aceptTerminos == true) {
+            try {
+                JOptionPane.showMessageDialog(this, "¡Registro exitoso!");
+                pan1 p1 = new pan1(this.inst);
+                metodosVentana.mostarPanel(content, p1, inst.getAncho(), inst.getAlto());
+                
+                
+                RegEnvio r = new RegEnvio();
+                RegEnvioDAO rd = new RegEnvioDAO();
+
+                r.setDesNombre(pan3.tfiDesNombre.getText());
+                r.setDesCorreo(pan3.tfiDesCorreo.getText());
+                r.setDesNumero(Integer.parseInt(pan3.tfiDesNumero.getText()));
+                r.setDesDNI(Integer.parseInt(pan3.tfiDesDNI.getText()));
+                r.setDesCiudad(rd.obtenerIdCiudad((String) pan1.jComboBoxCiudad2.getSelectedItem()));
+                idDestinatario = rd.registrarDestinatario(r);
+
+                r.setCosto(Float.parseFloat(pan2.jTextFieldAncho.getText()),Float.parseFloat(pan2.jTextFieldAlto.getText()),Float.parseFloat(pan2.jTextFieldLargo.getText()));
+                r.setEstadoEnvio(1);
+                idEnvio = rd.registrarEnvio(r);
+                
+                r.setMetPago(pan4.valorMetodo);
+                r.setEnvioID(idEnvio);
+                idFactura = rd.registrarFactura(r);
+                
+                r.setDescripcion(pan2.jTextArea1.getText());
+                r.setValor(Float.parseFloat(pan2.jTextFieldValor.getText()));
+                r.setPeso(Float.parseFloat(pan2.jTextFieldPeso1.getText()));
+                r.setVolumen(Float.parseFloat(pan2.jTextFieldAncho.getText()), Float.parseFloat(pan2.jTextFieldLargo.getText()), Float.parseFloat(pan2.jTextFieldLargo.getText()));
+                r.setRemID(inst.id);
+                r.setDesID(idDestinatario);
+                r.setEnvioID(idEnvio);
+                r.setFacID(idFactura);
+                idPaquete = rd.registrarPaquete(r);
+                
+            } catch (Exception e) {
+                //JOptionPane.showMessageDialog(this, "Error en el ingreso de datos", "Error al registrar envío", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe aceptar los términos y condiciones", "Error al registrar envío", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked

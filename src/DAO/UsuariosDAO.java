@@ -17,6 +17,8 @@ public class UsuariosDAO {
     Usuarios p;
     ArrayList<Usuarios> lista = new ArrayList<>();
     
+    public static String nombreDepartamentoCiudad = null;
+    
      public ArrayList<Usuarios> listarTodo() {
         try {
             String sql =  "SELECT * FROM remitente";
@@ -70,5 +72,46 @@ public class UsuariosDAO {
                 Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+     
+     public String obtenerNombreDepartamentoCiudadPorIDUsuario(String userID) {
+        
+
+        try {
+            // Consulta para obtener el nombre del departamento y la ciudad
+            String sql = "SELECT d.depNombre, c.ciuNombre "
+                    + "FROM remitente r "
+                    + "JOIN ciudad c ON r.Ciudad_ID = c.CiuID "
+                    + "JOIN departamento d ON c.Departamento_ID = d.depID "
+                    + "WHERE r.remID = ?";
+
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, userID);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String nombreDepartamento = rs.getString("depNombre");
+                String nombreCiudad = rs.getString("ciuNombre");
+
+                // Concatenar el nombre del departamento y la ciudad
+                nombreDepartamentoCiudad = nombreDepartamento + ", " + nombreCiudad;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return nombreDepartamentoCiudad;
     }
 }
